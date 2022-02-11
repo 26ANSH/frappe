@@ -56,6 +56,7 @@ def handle():
 	elif call=="resource":
 		if "run_method" in frappe.local.form_dict:
 			method = frappe.local.form_dict.pop("run_method")
+			
 			doc = frappe.get_doc(doctype, name)
 			doc.is_whitelisted(method)
 

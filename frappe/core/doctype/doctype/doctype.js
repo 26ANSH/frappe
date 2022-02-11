@@ -53,8 +53,8 @@ frappe.ui.form.on('DocType', {
 		frm.events.autoname(frm);
 		frm.events.set_naming_rule_description(frm);
 
-		frm.add_custom_button('Drag and Drop', () => {
-            window.open(`/app/form-builder/${frappe.router.slug(frm.doc.name)}`);
+		frm.add_custom_button('Go to Form Builder', () => {
+            window.open(`/app/form-builder/${frm.doc.name}`);
         })
 	},
 
