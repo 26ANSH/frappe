@@ -60,6 +60,7 @@ frappe.FormBuilder = class FormBuilder {
 		this.page.clear_actions();
 		this.page.set_title(__("Form Builder"));
 		this.edit_existing_form_doctype();
+		this.create_new_doctype();
 	}
 
 	// Users can select a doctype to start with Drag-Drop form builder
@@ -87,6 +88,184 @@ frappe.FormBuilder = class FormBuilder {
 				frappe.set_route('form-builder', name);
 			});
 		});
+	}
+
+	// Users can create a very new Doctype
+	create_new_doctype(){
+		var me = this;
+		this.doctype_name_input = frappe.ui.form.make_control({
+			parent: this.page.main.find(".doctype-selector"),
+			df: {
+				fieldtype: "Data",
+				label: __("Enter the name for Doctype"),
+				reqd:1
+			},
+			render_input: true
+		});
+
+		this.doctype_module_selection = frappe.ui.form.make_control({
+			parent: this.page.main.find(".doctype-module-selector"),
+			df: {
+				fieldtype: "Link",
+				options: "DocType",
+				filters: {
+					read_only: 0
+				},
+				label: __("Select Module"),
+				only_select: true,
+				reqd:1
+			},
+			render_input: true
+		});
+		
+		this.doctype_is_submittable = frappe.ui.form.make_control({
+			parent: this.page.main.find(".check-submittable"),
+			df: {
+				default: 0,
+				depends_on: "eval:!doc.istable",
+				description: "Once submitted, submittable documents cannot be changed. They can only be Cancelled and Amended.",
+				fieldname: "is_submittable",
+				fieldtype: "Check",
+				label: "Is Submittable"
+			},
+			render_input: true
+		});
+
+		this.doctype_is_child = frappe.ui.form.make_control({
+			parent: this.page.main.find(".check-child-table"),
+			df: {
+				default: 0,
+				description: "Child Tables are shown as a Grid in other DocTypes",
+				fieldname: "istable",
+				fieldtype: "Check",
+				in_standard_filter: 1,
+				label: "Is Child Table",
+				oldfieldname: "istable",
+				oldfieldtype: "Check"
+			},
+			render_input: true
+		});
+
+		this.doctype_is_single = frappe.ui.form.make_control({
+			parent: this.page.main.find(".check-is-single"),
+			df: {
+				default: 0,
+				depends_on: "eval:!doc.istable",
+				description: "Single Types have only one record no tables associated. Values are stored in tabSingles",
+				fieldname: "issingle",
+				fieldtype: "Check",
+				in_standard_filter: 1,
+				label: "Is Single",
+				oldfieldname: "issingle",
+				oldfieldtype: "Check",
+				set_only_once: 1
+			},
+			render_input: true
+		});
+
+		this.doctype_is_tree = frappe.ui.form.make_control({
+			parent: this.page.main.find(".check-is-tree"),
+			df: {
+				default: 0,
+				description: "Tree structures are implemented using Nested Set",
+				fieldname: "is_tree",
+				fieldtype: "Check",
+				label: "Is Tree"
+			},
+			render_input: true
+		});
+
+		this.doctype_quick_entry = frappe.ui.form.make_control({
+			parent: this.page.main.find(".check-quick-entry"),
+			df: {
+				default: 0,
+				depends_on: "eval:!doc.istable && !doc.issingle",
+				description: "Open a dialog with mandatory fields to create a new record quickly",
+				fieldname: "quick_entry",
+				fieldtype: "Check",
+				label: "Quick Entry"
+			},
+			render_input: true
+		});
+
+		// For Right hand side checkboxes
+		this.doctype_track_changes = frappe.ui.form.make_control({
+			parent: this.page.main.find(".track-changes"),
+			df: {
+				default: 0,
+				depends_on: "eval:!doc.istable",
+				description: "If enabled, changes to the document are tracked and shown in timeline",
+				fieldname: "track_changes",
+				fieldtype: "Check",
+				label: "Track Changes"
+			},
+			render_input: true
+		});
+
+		this.doctype_track_seen = frappe.ui.form.make_control({
+			parent: this.page.main.find(".track-seen"),
+			df: {
+				default: 0,
+				depends_on: "eval:!doc.istable",
+				descriptions: "If enabled, the document is marked as seen, the first time a user opens it",
+				fieldname: "track_seen",
+				fieldtype: "Check",
+				label: "Track Seen"
+			},
+			render_input: true
+		});
+
+		this.doctype_track_views = frappe.ui.form.make_control({
+			parent: this.page.main.find(".track-views"),
+			df: {
+				default: 0,
+				depends_on: "eval:!doc.istable",
+				description: "If enabled, document views are tracked, this can happen multiple times",
+				fieldname: "track_views",
+				fieldtype: "Check",
+				label: "Track Views"
+			},
+			render_input: true
+		});
+
+		this.doctype_custom_check = frappe.ui.form.make_control({
+			parent: this.page.main.find(".custom-checkbox-tracks"),
+			df: {
+				default: 0,
+				fieldname: "custom",
+				fieldtype: "Check",
+				label: "Custom?"
+			},
+			render_input: true
+		});
+
+		this.doctype_beta_check = frappe.ui.form.make_control({
+			parent: this.page.main.find(".beta-checkbox"),
+			df: {
+				default: 0,
+				fieldname: "beta",
+				fieldtype: "Check",
+				label: "Beta"
+			},
+			render_input: true
+		});
+
+		// Creating new Doctype
+		this.page.main.find(".btn-new-doctype-format").on("click", function() {
+			var doctype_name= me.doctype_name_input.get_value(),
+				module = me.doctype_module_selection.get_value();
+				var doctype_settings={
+					is_submittable : me.doctype_is_submittable,
+					is_child : me
+				}
+			if(!(doctype && name)) {
+				frappe.msgprint(__("Both DocType and Name required"));
+				return;
+			}
+			me.setup_new_print_format(doctype, name);
+
+		});
+
 	}
 
 	setup_form_builder_format() {

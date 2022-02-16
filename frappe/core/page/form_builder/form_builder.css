@@ -3,3 +3,17 @@
     justify-content: center;
     
 }
+.doctype-format-checkboxes{
+    padding: var(--padding-xs);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;  
+}
+.checks{
+    margin-top:var(--margin-md);
+    margin-bottom: 8px;
+    line-height: 1.6;
+}
+.btn-new-doctype-format{
+    margin-top: var(--margin-sm);
+}

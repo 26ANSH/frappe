@@ -1,18 +1,39 @@
-<div class="padding">
+<div class="padding" style="text-align:center;">
     <p class="text-muted">{%= __("Select an existing Doctype to edit or start a new format.") %}</p>
 </div>
-<div class="padding" style="max-width: 300px;">
+<div class="padding" style="max-width: 300px;padding:12px;">
     <div class="doctype-format-selector"></div>
     <p>
         <button class="btn btn-sm btn-default btn-edit-existing-format">
             {%= __("Select") %}</button>
     </p>
 </div>
-<div class="padding" style="max-width: 300px;">
-    <div class="doctype-selector"></div>
-    <div class="name-selector"></div>
+<div class="padding" style=" border-top: 1px solid var(--border-color);padding:10px;">
+    <div style="max-width: 300px;">
+        <div class="doctype-selector"></div>
+    </div>
+    
+    <!-- Checkboxes start -->
+    <div class="doctype-format-checkboxes">
+        <div style="margin-right:var(--margin-xl)">
+            <div class="doctype-module-selector" style="max-width: 300px;"></div>
+            <div class="check-submittable checks"></div>
+            <div class="check-child-table checks"></div>
+            <div class="check-is-single checks"></div>
+            <div class="check-is-tree checks"></div>
+            <div class="check-quick-entry checks"></div>
+        </div>
+        <div>
+            <div class="track-changes checks"></div>
+            <div class="track-seen checks"></div>
+            <div class="track-views checks"></div>
+            <div class="custom-checkbox-tracks checks"></div>
+            <div class="beta-checkbox checks"></div>
+            <div class="is-virtual-checkbox checks"></div>
+        </div>
+    </div>
     <p>
-        <button class="btn btn-sm btn-default btn-new-doctype-format">
+        <button class="btn btn-sm btn-primary btn-new-doctype-format">
             {%= __("Create a New Doctype") %}</button>
     </p>
 </div>
