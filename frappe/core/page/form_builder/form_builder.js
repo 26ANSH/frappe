@@ -109,7 +109,7 @@ frappe.FormBuilder = class FormBuilder {
 				fieldtype: "Link",
 				options: "DocType",
 				filters: {
-					read_only: 0
+					read_only: 0     // CHECK THIS
 				},
 				label: __("Select Module"),
 				only_select: true,
@@ -255,17 +255,48 @@ frappe.FormBuilder = class FormBuilder {
 			var doctype_name= me.doctype_name_input.get_value(),
 				module = me.doctype_module_selection.get_value();
 				var doctype_settings={
-					is_submittable : me.doctype_is_submittable,
-					is_child : me
+					is_submittable : me.doctype_is_submittable.get_value(),
+					is_child : me.doctype_is_child.get_value(),
+					is_single : me.doctype_is_single.get_value(),
+					is_tree : me.doctype_is_tree.get_value(),
+					quick_entry : me.doctype_quick_entry.get_value(),
+					track_changes : me.doctype_track_changes.get_value(),
+					track_seen : me.doctype_track_seen.get_value(),
+					track_views : me.doctype_track_views.get_value(),
+					custom : me.doctype_custom_check.get_value(),
+					beta : me.doctype_beta_check.get_value()
 				}
-			if(!(doctype && name)) {
-				frappe.msgprint(__("Both DocType and Name required"));
+			if(!(doctype_name && module)) {
+				frappe.msgprint(__("Both DocType Name and Module required"));
 				return;
 			}
-			me.setup_new_print_format(doctype, name);
+			me.setup_new_form_builder(doctype_name, module,doctype_settings);
 
 		});
+	}
 
+	setup_new_form_builder(doctype_name, module,settings,based_on,beta){
+		frappe.call({
+			method: 'frappe.core.page.form_builder.form_builder.create_custom_new_doctype',
+			args: {
+				doctype : doctype_name,
+				module : module,
+				settings : settings,
+				based_on : based_on,
+				beta : Boolean(beta)
+			},
+			callback: (resp) => {
+				if (resp.message) {
+					let doc_form_builder = resp.message;
+					if (print_format.print_format_builder_beta) {
+						frappe.set_route('print-format-builder-beta', print_format.name);
+					} else {
+						this.print_format = print_format;
+						this.refresh();
+					}
+				}
+			}
+		})
 	}
 
 	setup_form_builder_format() {
