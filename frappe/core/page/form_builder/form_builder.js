@@ -107,13 +107,15 @@ frappe.FormBuilder = class FormBuilder {
 			parent: this.page.main.find(".doctype-module-selector"),
 			df: {
 				fieldtype: "Link",
-				options: "DocType",
-				filters: {
-					read_only: 0     // CHECK THIS
-				},
+				options: "Module Def",
+				in_list_view: 1,
+   				in_standard_filter: 1,
 				label: __("Select Module"),
 				only_select: true,
-				reqd:1
+				oldfieldname: "module",
+   				oldfieldtype: "Link",
+				reqd:1,
+				search_index: 1
 			},
 			render_input: true
 		});
@@ -253,19 +255,20 @@ frappe.FormBuilder = class FormBuilder {
 		// Creating new Doctype
 		this.page.main.find(".btn-new-doctype-format").on("click", function() {
 			var doctype_name= me.doctype_name_input.get_value(),
-				module = me.doctype_module_selection.get_value();
-				var doctype_settings={
-					is_submittable : me.doctype_is_submittable.get_value(),
-					is_child : me.doctype_is_child.get_value(),
-					is_single : me.doctype_is_single.get_value(),
-					is_tree : me.doctype_is_tree.get_value(),
-					quick_entry : me.doctype_quick_entry.get_value(),
-					track_changes : me.doctype_track_changes.get_value(),
-					track_seen : me.doctype_track_seen.get_value(),
-					track_views : me.doctype_track_views.get_value(),
-					custom : me.doctype_custom_check.get_value(),
-					beta : me.doctype_beta_check.get_value()
-				}
+			module = me.doctype_module_selection.get_value();
+			var doctype_settings={
+				"is_submittable" : me.doctype_is_submittable.get_value(),
+				"is_child" : me.doctype_is_child.get_value(),
+				"is_single" : me.doctype_is_single.get_value(),
+				"is_tree" : me.doctype_is_tree.get_value(),
+				"quick_entry" : me.doctype_quick_entry.get_value(),
+				"track_changes" : me.doctype_track_changes.get_value(),
+				"track_seen" : me.doctype_track_seen.get_value(),
+				"track_views" : me.doctype_track_views.get_value(),
+				"custom" : me.doctype_custom_check.get_value(),
+				"beta" : me.doctype_beta_check.get_value()
+			}
+			console.log("Settings :",doctype_settings)
 			if(!(doctype_name && module)) {
 				frappe.msgprint(__("Both DocType Name and Module required"));
 				return;

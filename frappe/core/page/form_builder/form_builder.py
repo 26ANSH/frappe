@@ -1,12 +1,14 @@
 import frappe
+import json
 
 @frappe.whitelist()
 def create_custom_new_doctype(doctype, module,settings, based_on='Standard', beta=False):
+	settings = json.loads(settings)
 	doc = frappe.new_doc('DocType')
 	doc.name = doctype
 	doc.module = module
 	
-	doc.issingle = settings['is_single']
+	doc.issingle = settings["is_single"]
 	doc.is_tree = settings['is_tree']
 	doc.track_changes = settings['track_changes']
 	doc.track_seen = settings['track_seen']
@@ -25,5 +27,4 @@ def create_custom_new_doctype(doctype, module,settings, based_on='Standard', bet
 		doc.beta = 0
 
 	doc.insert(ignore_permissions=True)
-	print("Doctype Inserted")
 	return doc
