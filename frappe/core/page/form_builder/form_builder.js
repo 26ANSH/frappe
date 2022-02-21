@@ -7,6 +7,7 @@ frappe.pages['form-builder'].on_page_load = function(wrapper) {
 frappe.pages['form-builder'].on_page_show = function(wrapper) {
 	var route = frappe.get_route();   // Get the route
 	if(route.length>1) {
+		console.log("Error might be here")
 		frappe.form_builder.doctype_format = frappe.get_doc('DocType',route[1]);
 		frappe.form_builder.refresh();
 	} else if(frappe.route_options) {
@@ -29,28 +30,24 @@ frappe.FormBuilder = class FormBuilder {
 			title: 'Form Builder',
 		});
 		this.page.main.css({"border-color": "transparent"});
-		const save_form_builder = () =>{
-			console.log("Saving data ....");
-		}
-	
-		const add_new_field = () =>{
-			console.log("Adding a new field");
-		}
-		let $btn_save = this.page.set_primary_action('Save', () => save_form_builder(), 'octicon octicon-plus')
-		let $btn_add_new = this.page.set_secondary_action('Add field', () => add_new_field(), 'octicon octicon-sync')
-
+		
 		this.page.sidebar = $('<div class="print-format-builder-sidebar"></div>').appendTo(this.page.sidebar);
 		this.page.main = $('<div class="col-md-12 border print-format-builder-main frappe-card"></div>').appendTo(this.page.main);
 	}
 
 	refresh() {
+		// Cleaning the page
+		this.page.clear_actions();
+		this.page.clear_menu();
+		this.page.remove_inner_toolbar()
+		
 		this.custom_html_count = 0;
 		if(!this.doctype_format){
 			this.show_start();
 		}
 		else{
 			this.page.set_title(this.doctype_format.name);
-			//this.setup_form_format();
+			this.setup_form_format();
 		}
 	}
 
@@ -291,10 +288,8 @@ frappe.FormBuilder = class FormBuilder {
 			callback: (resp) => {
 				if (resp.message) {
 					let doc_form_builder = resp.message;
-					if (print_format.print_format_builder_beta) {
-						frappe.set_route('print-format-builder-beta', print_format.name);
-					} else {
-						this.print_format = print_format;
+					if (doc_form_builder) {
+						this.doctype_format = doc_form_builder;
 						this.refresh();
 					}
 				}
@@ -302,6 +297,55 @@ frappe.FormBuilder = class FormBuilder {
 		})
 	}
 
+	setup_form_format() {
+		var me = this;
+		console.log(this.doctype_format);
+		frappe.model.with_doctype(this.doctype_format.name, function(doctype) {
+			me.meta = frappe.get_meta(me.doctype_format.name);
+			console.log(me.meta);
+			me.setup_sidebar();
+			me.render_layout();
+			me.page.set_primary_action(__("Save"), function() {
+				//me.save_doctype_format();
+				console.log("Save ---");
+			});
+			me.page.clear_menu();
+			me.page.add_menu_item(__("Start new Doctype"), function() {
+				me.doctype_format = null;
+				me.refresh();
+			}, true);
+			me.page.clear_inner_toolbar();
+		})
+	}
+
+	setup_sidebar() {
+		// prepend custom HTML field
+		var fields = [this.get_custom_html_field()].concat(this.meta.fields);
+		this.page.sidebar.html(
+			$(frappe.render_template("form_builder_sidebar", {fields: fields}))
+		);
+		//this.setup_field_filter();
+	}
+
+	get_custom_html_field() {
+		return {
+			fieldtype: "Custom HTML",
+			fieldname: "_custom_html",
+			label: __("Custom HTML")
+		};
+	}
+
+	render_layout() {
+		this.page.main.empty();
+		this.prepare_data();
+		$(frappe.render_template("form_builder_layout", {data: this.layout_data, me: this})).appendTo(this.page.main);
+		// Adding the complete layout render
+	}
+
+	prepare_data() {
+		this.layout_data = [];
+	}
+	
 	setup_form_builder_format() {
 		this.page.clear_actions();
 		this.page.set_title(__("Form Builder"));
