@@ -39,7 +39,6 @@ frappe.FormBuilder = class FormBuilder {
 		// Cleaning the page
 		this.page.clear_actions();
 		this.page.clear_menu();
-		this.page.remove_inner_toolbar()
 		
 		this.custom_html_count = 0;
 		if(!this.doctype_format){
@@ -309,11 +308,15 @@ frappe.FormBuilder = class FormBuilder {
 				//me.save_doctype_format();
 				console.log("Save ---");
 			});
+			me.page.set_primary_action(__("Add Field"), function() {
+				console.log("Adding Field ---");
+			});
 			me.page.clear_menu();
 			me.page.add_menu_item(__("Start new Doctype"), function() {
 				me.doctype_format = null;
 				me.refresh();
 			}, true);
+
 			me.page.clear_inner_toolbar();
 		})
 	}
@@ -339,12 +342,16 @@ frappe.FormBuilder = class FormBuilder {
 		this.page.main.empty();
 		this.prepare_data();
 		$(frappe.render_template("form_builder_layout", {data: this.layout_data, me: this})).appendTo(this.page.main);
+		
 		// Adding the complete layout render
+		// Setting up the sortable
+		this.setup_sortable();
 	}
 
 	prepare_data() {
 		this.layout_data = [];
 	}
+	
 	
 	setup_form_builder_format() {
 		this.page.clear_actions();
