@@ -302,15 +302,9 @@ frappe.FormBuilder = class FormBuilder {
 		frappe.model.with_doctype(this.doctype_format.name, function(doctype) {
 			me.meta = frappe.get_meta(me.doctype_format.name);
 			console.log(me.meta);
-			me.setup_sidebar();
-			me.render_layout();
-			me.page.set_primary_action(__("Save"), function() {
-				//me.save_doctype_format();
-				console.log("Save ---");
-			});
-			me.page.set_primary_action(__("Add Field"), function() {
-				console.log("Adding Field ---");
-			});
+			// me.setup_sidebar();
+			// me.render_layout();
+			
 			me.page.clear_menu();
 			me.page.add_menu_item(__("Start new Doctype"), function() {
 				me.doctype_format = null;
@@ -318,6 +312,15 @@ frappe.FormBuilder = class FormBuilder {
 			}, true);
 
 			me.page.clear_inner_toolbar();
+			
+			frappe.require("form_builder.bundle.js").then(() => {
+				frappe.print_format_builder = new frappe.ui.FormBuilder({
+					wrapper: me.parent,
+					page: me.page,
+					doctype_format: me.doctype_format
+				});
+			});
+			
 		})
 	}
 
