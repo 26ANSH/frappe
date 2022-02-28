@@ -312,10 +312,10 @@ frappe.FormBuilder = class FormBuilder {
 			}, true);
 
 			me.page.clear_inner_toolbar();
-			
+			// $(wrapper).find(".layout-main-section")
 			frappe.require("form_builder.bundle.js").then(() => {
 				frappe.print_format_builder = new frappe.ui.FormBuilder({
-					wrapper: me.parent,
+					wrapper: $(me.parent).find(".layout-main-section"),
 					page: me.page,
 					doctype_format: me.doctype_format
 				});
