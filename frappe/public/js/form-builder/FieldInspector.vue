@@ -2,7 +2,7 @@
     <div>
         <div class="sidebar-menu-inspector">
 			<span class="drag-handle" style="float:right">
-				<svg class="icon icon-xs"><use xlink:href="#icon-drag"></use></svg>
+				<svg class="icon icon-md"><use xlink:href="#icon-setting-gear"></use></svg>
 			</span>
 				<div class="sidebar-label">{{ __("Label") }}</div>
 				<div class="form-group">
@@ -102,7 +102,7 @@
 				</div>
 			</div>
 			
-			<button class="btn btn-secondary btn-xs float-right">Save</button>
+			<!-- <button class="btn btn-secondary btn-xs float-right">Save</button> -->
 			
     </div>
 </template>

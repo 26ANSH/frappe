@@ -315,7 +315,7 @@ frappe.FormBuilder = class FormBuilder {
 			// $(wrapper).find(".layout-main-section")
 			frappe.require("form_builder.bundle.js").then(() => {
 				frappe.print_format_builder = new frappe.ui.FormBuilder({
-					wrapper: $(me.parent).find(".layout-main-section"),
+					wrapper: $(me.parent).find(".page-body"),
 					page: me.page,
 					doctype_format: me.doctype_format
 				});
