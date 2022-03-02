@@ -19,7 +19,17 @@ export default {
     },
 	data() {
 		return {
-		list2: [{ label: "Drag Me Too!" }],
+		list2: [{
+					label: __("ID (name)"),
+					fieldname: "name",
+					fieldtype: "Data"
+				},
+				{
+					label: __("Email"),
+					fieldname: "email",
+					fieldtype: "Data"
+				},
+				],
 		};
   },
 }

@@ -1,9 +1,9 @@
 <template>
     <div class="layout-main-section row">
-      <div class="col-3">
+      <div class="col-2">
         <DoctypeFieldSet />
       </div>
-      <div class="print-format-container col-9">
+      <div class="print-format-container col-10">
         <keep-alive>
           <DoctypeBuilder />
         </keep-alive>
@@ -28,7 +28,7 @@ export default {
 
 <style scoped>
 .layout-main-section {
-  margin-right: 0.2rem;
+  margin: 0.2rem;
 }
 
 .print-format-container {
