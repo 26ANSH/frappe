@@ -16,8 +16,9 @@ class FormBuilder {
 			//me.save_doctype_format();
 			console.log("Save ---");
 		});
-		this.page.set_secondary_action(__("Add Field"), function() {
-			console.log("Adding Field ---");
+		
+		this.page.set_secondary_action(__("settings"), function() {
+			$(".doctype-setting-sidebar").toggle();
 		});
 
 		let $vm = new Vue({
@@ -25,7 +26,7 @@ class FormBuilder {
 			render: h =>
 				h(FormBuilderComponent, {
 					props: {
-						doctype_format_name: doctype_format
+						doctype_format_name: doctype_format,
 					}
 				})
 		});
