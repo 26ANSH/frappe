@@ -3,10 +3,9 @@
         <div class="form-sidebar">
             <div class="sidebar-menu">
 				<div class="sidebar-label">
-					<div class="label-itemsets " style="border-right: 1px solid var(--gray-300);" @click="field_show = true" :class="{ active: field_show }">Fields</div>
-					<div class="label-itemsets " @click="field_show = false" :class="{ active: !field_show }">Inspector</div>
+					<div class="label-itemsets ">{{this.doctype.name}}</div>
 				</div>
-				<div v-if="field_show">
+				<div>
 					<input
 						class="mb-2 form-control form-control-sm"
 						type="text"
@@ -59,9 +58,6 @@
 						</div>
 					</draggable>
 				</div>
-				<div v-else>
-					<FieldInspector />
-				</div>
 			</div>
         </div>
     </div>
@@ -74,11 +70,11 @@ import draggable from "vuedraggable";
 
 export default {
     name: "DoctypeFieldSet",
+	props : ["doctype"],
     data() {
 		return {
 			search_text: "",
-			inspect_current_element: null,
-			field_show: true,
+			inspect_current_element: null
 		};
 	},
 	components: {

@@ -14,22 +14,13 @@ import draggable from "vuedraggable";
 
 export default {
     name: "DoctypeBuilder",
+	props : ["doctype"],
     components: {
         draggable
     },
 	data() {
 		return {
-		list2: [{
-					label: __("ID (name)"),
-					fieldname: "name",
-					fieldtype: "Data"
-				},
-				{
-					label: __("Email"),
-					fieldname: "email",
-					fieldtype: "Data"
-				},
-				],
+		list2: this.doctype.fields,
 		};
   },
 }

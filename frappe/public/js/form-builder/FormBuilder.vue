@@ -1,21 +1,28 @@
 <template>
     <div class="layout-main-section row">
-      <div class="col-3">
-        <DoctypeFieldSet />
+
+      <div class="col-2">
+        <!-- {{this.doctype_format_name.name}} -->
+        <DoctypeFieldSet :doctype="this.doctype_format_name" />
       </div>
-      <div class="print-format-container col-9">
+
+      <div class="print-format-container col-8">
         <keep-alive>
-          <DoctypeBuilder />
+          <DoctypeBuilder :doctype="this.doctype_format_name"/>
         </keep-alive>
       </div>
-          <SettingsSidebar />
+
+      <div class="col-2">
+        <FieldInspector/>
+      </div>
+
     </div>
 </template>
 <script>
 
 import DoctypeBuilder from './DoctypeBuilder.vue';
 import DoctypeFieldSet from './DoctypeFieldSet.vue';
-import SettingsSidebar from './DoctypeSettingsSidebar.vue';
+import FieldInspector from './FieldInspector.vue';
 
 export default {
   name: "PrintFormatBuilder",
@@ -23,7 +30,8 @@ export default {
   components: {
     DoctypeBuilder,
     DoctypeFieldSet,
-    SettingsSidebar
+    FieldInspector,
+    // SettingsSidebar
     // DoctypeSetting
   },
 };
