@@ -134,7 +134,17 @@ frappe.msgprint = function(msg, title, is_minimizable) {
 	}
 
 	if(data.message instanceof Array) {
-		data.message.forEach(function(m) {
+		let messages = data.message;
+		const exceptions = messages
+			.map(m => JSON.parse(m))
+			.filter(m => m.raise_exception);
+
+		// only show exceptions if any exceptions exist
+		if (exceptions.length) {
+			messages = exceptions;
+		}
+
+		messages.forEach(function(m) {
 			frappe.msgprint(m);
 		});
 		return;
@@ -233,7 +243,7 @@ frappe.msgprint = function(msg, title, is_minimizable) {
 	if(data.title || !msg_exists) {
 		// set title only if it is explicitly given
 		// and no existing title exists
-		frappe.msg_dialog.set_title(data.title || __('Message'));
+		frappe.msg_dialog.set_title(data.title || __('Message', null, 'Default title of the message dialog'));
 	}
 
 	// show / hide indicator
