@@ -12,6 +12,7 @@
                                 class="mb-2 form-control form-control-sm"
                                 type="text"
                                 :placeholder="__('Lable fieldname')"
+								v-model='label'
                             />
 						</div>
 					</div>
@@ -24,12 +25,12 @@
 						<div class="control-input">
 							<select
 								class="form-control form-control-sm"
+								v-model='fieldtype'
 							>
 								<option
 									v-for="options in data_fieldtypes"
 									:value="options.value"
-									:key="options.value"
-								>
+									:key="options.value">
 									{{ options.value }}
 								</option>
 							</select>
@@ -108,13 +109,23 @@
 </template>
 
 <script>
+import { bus } from './FormBuilder.vue'
+
 export default {
     name: "FieldInspector",
+	// props: ["field"],
+	props : ["doctype"],
     data() {
         return {
-            current_elemnet: null
+            current_field: null
         };
     },
+	created(){
+		bus.$on('fieldchanged', (id) =>
+		{ 
+			this.current_field = id
+		});
+	},
     computed: {
         data_fieldtypes() {
 			return [
@@ -159,7 +170,57 @@ export default {
 				{ value: "Text Editor"},
 				{ value: "Time"}
 			];
-		}
+		},
+		
+		label:
+		{ 
+			get ()
+			{
+				if(this.current_field != null)
+				{
+					var field = this.doctype.fields[this.current_field];
+					
+					return field.label
+				}
+				else
+				{ 
+					return ''
+				}
+			},
+			set(val)
+			{ 
+				if(this.current_field != null)
+				{ 
+					this.doctype.fields[this.current_field].label = val
+				}
+			}
+		},
+
+		fieldtype: 
+		{ 
+			get ()
+			{
+				if(this.current_field != null)
+				{
+					var field = this.doctype.fields[this.current_field];
+					
+					return field.fieldtype
+				}
+				else
+				{ 
+					return 'data'
+				}
+			},
+			set(val)
+			{ 
+				if(this.current_field != null)
+				{ 
+					this.doctype.fields[this.current_field].fieldtype = val
+				}
+			}
+		},
+
+
     }
 };
 </script>
@@ -168,13 +229,12 @@ export default {
 
 .sidebar-menu-inspector {
     margin: var(--margin-xs); 
-    padding: 0.3rem var(--padding-xs);
 }
 .sidebar-label {
     color: var(--text-color);
     line-height: 1.5;
     font-weight: 400;
-    font-size: var(--text-xs);
+    font-size: var(--text-sm);
 }
 .checkbox {
 	display:inline-flex;

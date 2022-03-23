@@ -1,4 +1,4 @@
-import FormBuilderComponent from './FormBuilder.vue';
+import DoctypeFormBuilder from './FormBuilder.vue';
 
 class FormBuilder {
     constructor({ wrapper, page, doctype_format }) {
@@ -13,7 +13,7 @@ class FormBuilder {
 		this.page.set_title(__("Editing {0}", [this.doctype_format.name]));
 		
 		this.page.set_primary_action(__("Save"), function() {
-			//me.save_doctype_format();
+			console.log(doctype_format)
 			console.log("Save ---");
 		});
 		
@@ -24,12 +24,13 @@ class FormBuilder {
 		let $vm = new Vue({
 			el: this.$wrapper.get(0),
 			render: h =>
-				h(FormBuilderComponent, {
+				h(DoctypeFormBuilder, {
 					props: {
-						doctype_format_name: doctype_format,
+						doctype_meta: doctype_format
 					}
 				})
 		});
+
 		this.$component = $vm.$children[0];
     }
 }

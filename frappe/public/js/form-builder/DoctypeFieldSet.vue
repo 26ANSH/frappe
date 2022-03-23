@@ -3,7 +3,7 @@
         <div class="form-sidebar">
             <div class="sidebar-menu">
 				<div class="sidebar-label">
-					<div class="label-itemsets ">{{this.doctype.name}}</div>
+					<div class="label-itemsets ">Fields</div>
 				</div>
 				<div>
 					<input
@@ -15,7 +15,8 @@
 					<draggable
 						class="fields-container"
 						:list="fields"
-						:group="{ name: 'fields',put: true, pull: true}"
+						:group="{ name: 'fields', pull: 'clone', put: false }"
+						:sort="false"
 					>
 						<div
 							class="field"
@@ -48,11 +49,11 @@
 								
 								{{ df.label }}
 							</div>
-							<span class="fieldtype_label"> {{ df.fieldtype }} </span>
+							<!-- <span class="fieldtype_label"> {{ df.fieldtype }} </span>
 
 							<span class="drag-handle">
 								<svg class="edit-profile-icon icon icon-xs"><use xlink:href="#icon-edit"></use></svg>
-							</span>
+							</span> -->
 					
 						</div>
 						</div>
@@ -70,7 +71,6 @@ import draggable from "vuedraggable";
 
 export default {
     name: "DoctypeFieldSet",
-	props : ["doctype"],
     data() {
 		return {
 			search_text: "",
@@ -206,10 +206,6 @@ export default {
 	justify-content: space-between;
 	align-items: center;
 	width: 100%;
-	background-color: var(--bg-light-gray);
-	border-radius: var(--border-radius);
-	border: 1px dashed var(--gray-400);
-	padding: 0.5rem 0.75rem;
 	font-size: var(--text-sm);
 	cursor: pointer;
 }
