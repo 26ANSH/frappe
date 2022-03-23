@@ -1,5 +1,5 @@
 <template>
-    <div class="print-format-main">
+    <div class="form-builder-workspace">
         <draggable class="draggable-list" :list="this.doctype.fields" group="fields">
 
             <div v-for="(field, id) in this.doctype.fields" :key="id" @click="select(id)" v-bind:class="issection(field.fieldtype)">
@@ -44,17 +44,17 @@ export default {
 
 
 <style scoped>
-.print-format-main {
+
+.form-builder-workspace 
+{
 	position: relative;
-	margin-right: auto;
-	margin-left: auto;
 	background-color: white;
-	box-shadow: var(--shadow-lg);
+	box-shadow: var(--shadow-md);
 	border-radius: var(--border-radius);
 }
 
 .draggable-list {
-    height: 50vh;
+    padding: 1rem 0.5rem;
 }
 
 .list-item {

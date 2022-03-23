@@ -5,29 +5,20 @@
         <DoctypeFieldSet/>
       </div>
 
-      <div class="print-format-container col-8">
-        Doctype Fields: {{ this.doctype.fields.length }}
+      <div class="doctype-container col-8">
         <keep-alive>
           <DoctypeBuilder :doctype="this.doctype"/>
         </keep-alive>
       </div>
 
-      <div class="col-2">
-
-        <!-- <div v-if="this.current_field != null">
-          {{ this.current_field.label}}
-          </div>
-        <div v-else>
-          No field Selected
-		    </div> -->
-        
-        <br>
-
+      <div class="col-2 feild-settings-container ">
         <FieldInspector :doctype="this.doctype"/>
       </div>
 
     </div>
+
 </template>
+
 <script>
 
 import Vue from 'vue'
@@ -57,8 +48,16 @@ export default {
   margin: 0.2rem;
 }
 
-.print-format-container {
+.doctype-container {
 	height: calc(100vh - 140px);
+	overflow-y: auto;
+	padding-top: 0.5rem;
+	padding-bottom: 4rem;
+  margin-top: 0.5rem;
+}
+
+.feild-settings-container {
+  height: calc(100vh - 140px);
 	overflow-y: auto;
 	padding-top: 0.5rem;
 	padding-bottom: 4rem;

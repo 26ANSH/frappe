@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="sidebar-menu-inspector">
+        <div class="sidebar-menu-sub-section">
 			<span class="drag-handle" style="float:right">
 				<svg class="icon icon-md"><use xlink:href="#icon-setting-gear"></use></svg>
 			</span>
@@ -18,7 +18,7 @@
 					</div>
 				</div>
 			</div>
-            <div class="sidebar-menu-inspector">
+            <div class="sidebar-menu-sub-section">
 				<div class="sidebar-label">{{ __("Fieldtype") }}</div>
 				<div class="form-group">
 					<div class="control-input-wrapper">
@@ -38,7 +38,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="sidebar-menu-inspector">
+			<div class="sidebar-menu-sub-section">
 				<div class="sidebar-label">{{ __("Name") }}</div>
 				<div class="form-group">
 					<div class="control-input-wrapper">
@@ -51,7 +51,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="sidebar-menu-inspector">
+			<div class="sidebar-menu-sub-section">
 				<div class="sidebar-label">{{ __("Length") }}</div>
 				<div class="form-group">
 					<div class="control-input-wrapper">
@@ -64,7 +64,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="sidebar-menu-inspector">
+			<div class="sidebar-menu-sub-section">
 				<div>
 					<div class="control-input-wrapper">
 						<div class="control-input checkbox">
@@ -77,7 +77,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="sidebar-menu-inspector">
+			<div class="sidebar-menu-sub-section">
 				<div>
 					<div class="control-input-wrapper">
 						<div class="control-input checkbox">
@@ -90,7 +90,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="sidebar-menu-inspector">
+			<div class="sidebar-menu-sub-section">
 				<div class="sidebar-label">{{ __("Option") }}</div>
 				<div class="form-group">
 					<div class="control-input-wrapper">
@@ -227,18 +227,25 @@ export default {
 
 <style scoped>
 
-.sidebar-menu-inspector {
+.sidebar-menu-section {
     margin: var(--margin-xs); 
 }
+
+.sidebar-menu-sub-section {
+    margin: var(--margin-xs); 
+}
+
 .sidebar-label {
     color: var(--text-color);
     line-height: 1.5;
     font-weight: 400;
     font-size: var(--text-sm);
 }
+
 .checkbox {
 	display:inline-flex;
 }
+
 .float-right {
 	margin-left:auto;
 	align-self: flex-end;

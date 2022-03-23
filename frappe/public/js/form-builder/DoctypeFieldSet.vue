@@ -173,7 +173,7 @@ export default {
 }
 .layout-side-section {
 	border-radius: var(--border-radius);
-	border: 1px solid var(--gray-400);
+	border: 1px solid var(--gray-300);
 	padding: 0 var(--padding-xs);
 	margin-top: var(--margin-md);
 }
@@ -220,7 +220,7 @@ export default {
 }
 
 .sidebar-menu:last-child {
-	margin-bottom: 0;
+	margin-bottom: 0.5rem;
 }
 
 .control-font >>> .frappe-control[data-fieldname="font"] label {
