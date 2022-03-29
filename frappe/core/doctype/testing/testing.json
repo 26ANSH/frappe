@@ -1,0 +1,21 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-03-27 00:35:41.980784",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [],
+ "fields": [],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2022-03-27 00:35:41.980784",
+ "modified_by": "Administrator",
+ "module": "Core",
+ "name": "Testing",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

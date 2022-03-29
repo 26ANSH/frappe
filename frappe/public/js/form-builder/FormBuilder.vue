@@ -2,7 +2,7 @@
     <div class="layout-main-section row">
 
       <div class="col-2">
-        <DoctypeFieldSet/>
+        <DoctypeFieldSet :doctype="this.doctype"/>
       </div>
 
       <div class="doctype-container col-8">

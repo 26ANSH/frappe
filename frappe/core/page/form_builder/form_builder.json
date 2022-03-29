@@ -1,10 +1,10 @@
 {
  "content": null,
- "creation": "2022-02-04 10:28:25.396710",
+ "creation": "2022-03-25 20:20:48.677121",
  "docstatus": 0,
  "doctype": "Page",
  "idx": 0,
- "modified": "2022-02-04 10:28:25.396710",
+ "modified": "2022-03-25 20:20:48.677121",
  "modified_by": "Administrator",
  "module": "Core",
  "name": "form-builder",
@@ -14,6 +14,5 @@
  "script": null,
  "standard": "Yes",
  "style": null,
- "system_page": 0,
- "title": "Form Builder"
+ "system_page": 0
 }

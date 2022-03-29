@@ -71,6 +71,7 @@ import draggable from "vuedraggable";
 
 export default {
     name: "DoctypeFieldSet",
+	props : ["doctype"],
     data() {
 		return {
 			search_text: "",
@@ -85,7 +86,7 @@ export default {
     computed: {
         fields() {
 			// let fields = this.meta.fields
-			let fields = [{label:"Email",fieldtype:"Data"},{label:"Name",fieldtype:"Attach"}]
+			let fields = this.doctype.fields
 				.filter(df => {
 					if (
 						["Section Break", "Column Break"].includes(df.fieldtype)
@@ -111,9 +112,7 @@ export default {
 						fieldtype: df.fieldtype,
 						options: df.options
 					};
-					if (df.fieldtype == "Table") {
-						out.table_columns = get_table_columns(df);
-					}
+					
 					return out;
 				});
 

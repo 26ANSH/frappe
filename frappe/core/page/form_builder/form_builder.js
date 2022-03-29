@@ -7,12 +7,14 @@ frappe.pages['form-builder'].on_page_load = function(wrapper) {
 frappe.pages['form-builder'].on_page_show = function(wrapper) {
 	var route = frappe.get_route();   // Get the route
 	if(route.length>1) {
-		console.log("Error might be here")
-		frappe.form_builder.doctype_format = frappe.get_doc('DocType',route[1]);
-		frappe.form_builder.refresh();
-	} else if(frappe.route_options) {
-		// MAke a new doctype option
-		console.log("Frappe route option")
+		console.log(route);
+		frappe.model.with_doc('DocType',route[1], function() {
+			console.log("Getting doc");
+			frappe.form_builder.doctype_format = frappe.get_doc('DocType',route[1]);
+			console.log(frappe.form_builder.doc_format);
+			frappe.form_builder.refresh();
+		});
+
 	}
 }
 
