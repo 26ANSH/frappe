@@ -117,18 +117,7 @@ export default {
 				});
 
 			return [
-				{
-					label: __("Custom HTML"),
-					fieldname: "custom_html",
-					fieldtype: "Option",
-					html: "",
-					custom: 1
-				},
-				{
-					label: __("ID (name)"),
-					fieldname: "name",
-					fieldtype: "Data"
-				},
+				
 				{
 					label: __("Spacer"),
 					fieldname: "spacer",
@@ -178,6 +167,11 @@ export default {
 }
 .margin-controls {
 	display: flex;
+}
+
+.fields-container {
+	max-height: calc(100vh - 28rem);
+	overflow-y: auto;
 }
 
 .form-control {

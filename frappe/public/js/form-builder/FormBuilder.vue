@@ -1,17 +1,17 @@
 <template>
     <div class="layout-main-section row">
 
-      <div class="col-2">
+      <div class="left-side">
         <DoctypeFieldSet :doctype="this.doctype"/>
       </div>
 
-      <div class="doctype-container col-8">
+      <div class="doctype-container center-side">
         <keep-alive>
           <DoctypeBuilder :doctype="this.doctype"/>
         </keep-alive>
       </div>
 
-      <div class="col-2 feild-settings-container ">
+      <div class="right-side feild-settings-container ">
         <FieldInspector :doctype="this.doctype"/>
       </div>
 

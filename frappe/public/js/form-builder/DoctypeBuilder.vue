@@ -3,8 +3,7 @@
         <draggable class="draggable-list" :list="this.doctype.fields" group="fields">
 
             <div v-for="(field, id) in this.doctype.fields" :key="id" @click="select(id)" v-bind:class="issection(field)" >
-              
-			  <div class="sidebar-menu-sub-section">
+			  <div class="sidebar-menu-sub-section" v-if="field.fieldtype=='Data'">
 					<div class="sidebar-label">{{ field.label }} </div>
 					<div class="form-group">
 						<div class="control-input-wrapper">
@@ -18,7 +17,11 @@
 					</div>
 					
 				</div>
-			  <button @click="remove(id)" >delete</button> 
+				<div class="sidebar-menu-sub-section" v-if="field.fieldtype=='Attach Image'">
+					<div class="sidebar-label">{{ field.label }} </div>
+					<button class="btn btn-secondary">Attach</button>
+				</div>
+			  <!-- <button @click="remove(id)" >delete</button>  -->
             </div>
 
         </draggable>
@@ -81,6 +84,7 @@ export default {
 	background-color: white;
 	box-shadow: var(--shadow-md);
 	border-radius: var(--border-radius);
+	height:inherit;
 }
 
 .draggable-list {
@@ -90,13 +94,8 @@ export default {
 .list-item {
 	display: flex;
 	width:35%;
-	/* justify-content: space-between; */
-	/* align-items: center; */
-	/* background-color: var(--bg-light-gray);
-	border-radius: var(--border-radius);
-	border: 1px dashed var(--gray-400); */
 	height:100%;
-	margin: var(--margin-lg) 0;
+	margin: var(--margin-xs) 0;
 	padding:0;
 	font-size: var(--text-sm);
 	cursor: pointer;
@@ -115,7 +114,7 @@ export default {
 
 .sidebar-menu-sub-section {
     margin: var(--margin-xs); 
-	width :100%;
+	width: -moz-available;
 }
 
 .sidebar-label {

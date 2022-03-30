@@ -1,10 +1,13 @@
 import DoctypeFormBuilder from './FormBuilder.vue';
+frappe.provide("frappe.ui");
 
 class FormBuilder {
     constructor({ wrapper, page, doctype_format }) {
         this.$wrapper = $(wrapper);
 		this.page = page;
 		this.doctype_format = doctype_format;
+
+	
 
 		// this.page.clear_actions();
 		// this.page.clear_icons();
@@ -21,6 +24,7 @@ class FormBuilder {
 			$(".doctype-setting-sidebar").toggle();
 		});
 
+		
 		let $vm = new Vue({
 			el: this.$wrapper.get(0),
 			render: h =>
@@ -30,7 +34,13 @@ class FormBuilder {
 					}
 				})
 		});
-
+		this.layout = frappe.ui.Split(['.left-side', '.center-side', '.right-side'], {
+			sizes: [25, 50, 25],
+			minSize: [250, 400, 250],
+			snapOffset: 5,
+			gutterSize: 4,
+			cursor: 'col-resize'
+		});
 		this.$component = $vm.$children[0];
     }
 }
