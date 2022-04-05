@@ -6,24 +6,18 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "student",
-  "photo"
+  "name1"
  ],
  "fields": [
   {
-   "fieldname": "student",
+   "fieldname": "name1",
    "fieldtype": "Data",
-   "label": "Student"
-  },
-  {
-   "fieldname": "photo",
-   "fieldtype": "Attach Image",
-   "label": "Photo"
+   "label": "Name"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-03-30 17:24:54.341995",
+ "modified": "2022-04-04 01:39:05.177315",
  "modified_by": "Administrator",
  "module": "Core",
  "name": "Testing",

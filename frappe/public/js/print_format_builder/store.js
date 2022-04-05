@@ -68,6 +68,8 @@ export function getStore(print_format_name) {
 				});
 			},
 			update({ fieldname, value }) {
+				console.log(fieldname);
+				console.log(value);
 				this.$set(this.print_format, fieldname, value);
 			},
 			save_changes() {
@@ -135,7 +137,7 @@ export function getStore(print_format_name) {
 			},
 			get_layout() {
 				if (this.print_format) {
-					if (typeof this.print_format.format_data == "string") {
+					if (typeof this.print_format.format_data == "string") {						
 						return JSON.parse(this.print_format.format_data);
 					}
 					return this.print_format.format_data;

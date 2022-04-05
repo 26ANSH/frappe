@@ -1,7 +1,6 @@
 <template>
 	<div class="print-format-main" :style="rootStyles">
 		<div :style="page_number_style">{{ __("1 of 2") }}</div>
-
 		<LetterHeadEditor type="Header" />
 		<HTMLEditor
 			:value="layout.header"

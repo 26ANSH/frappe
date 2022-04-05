@@ -68,9 +68,11 @@
 <script>
 import FieldInspector from "./FieldInspector.vue";
 import draggable from "vuedraggable";
+import { storeMixin } from "./store";
 
 export default {
     name: "DoctypeFieldSet",
+	mixins: [storeMixin],
 	props : ["doctype"],
     data() {
 		return {

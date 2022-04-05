@@ -118,6 +118,7 @@ export default {
 				primary_action: ({ html }) => {
 					html = frappe.dom.remove_script_and_style(html);
 					this.$set(this.df, "html", html);
+					console.log(this);
 					d.hide();
 				}
 			});

@@ -3,7 +3,7 @@
         <draggable class="draggable-list" :list="this.doctype.fields" group="fields">
 
             <div v-for="(field, id) in this.doctype.fields" :key="id" @click="select(id)" v-bind:class="issection(field)" >
-			  <div class="sidebar-menu-sub-section" v-if="field.fieldtype=='Data'">
+			  <div class="sidebar-menu-sub-section">
 					<div class="sidebar-label">{{ field.label }} </div>
 					<div class="form-group">
 						<div class="control-input-wrapper">
@@ -15,7 +15,24 @@
 							</div>
 						</div>
 					</div>
-					
+					<div class="field-actions">
+						<button
+							class="btn btn-xs btn-icon"
+							@click="select(id)"
+						>
+							<svg class="icon icon-sm">
+								<use xlink:href="#icon-edit"></use>
+							</svg>
+						</button>
+						<button
+							class="btn btn-xs btn-icon"
+							@click="remove(id)"
+						>
+							<svg class="icon icon-sm">
+								<use xlink:href="#icon-close"></use>
+							</svg>
+						</button>
+					</div>
 				</div>
 				<div class="sidebar-menu-sub-section" v-if="field.fieldtype=='Attach Image'">
 					<div class="sidebar-label">{{ field.label }} </div>
@@ -32,9 +49,11 @@
 <script>
 import draggable from "vuedraggable";
 import { bus } from './FormBuilder.vue'
+import { storeMixin } from "./store";
 
 export default {
     name: "DoctypeBuilder",
+	mixins: [storeMixin],
 	props : ["doctype"],
     
 	data() {
@@ -62,6 +81,7 @@ export default {
 	  remove: function(id)
 	  {
 		  this.doctype.fields.splice(id, 1);
+		  this.$set(this.doctype, 'remove', true)
 	  },
 	  select: function(id)
 	  { 
